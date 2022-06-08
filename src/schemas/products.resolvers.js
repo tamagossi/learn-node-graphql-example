@@ -1,6 +1,22 @@
-const { getProducts, getProductsByPrice, getProductById } = require('../models/products.model');
+const {
+	getProducts,
+	getProductsByPrice,
+	getProductById,
+	addProduct,
+	addReview,
+} = require('../models/products.model');
 
 module.exports = {
+	Mutation: {
+		addProduct: (_, args) => {
+			const { id, description, price } = args;
+			addProduct(id, description, price);
+		},
+		addReview: (_, args) => {
+			const { id, rating, comment } = args;
+			addReview(id, rating, comment);
+		},
+	},
 	Query: {
 		product: async (_, args) => {
 			const { id } = args;
