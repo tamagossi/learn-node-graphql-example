@@ -1,25 +1,26 @@
 const express = require('express');
-const { graphqlHTTP } = require('express-graphql');
-const { buildSchema } = require('graphql');
+const path = require('path');
 
-const schema = buildSchema(`
-    type Query {
-        description: String,
-        price: Float
-    }
-`);
+const { loadFilesSync } = require('@graphql-tools/load-files');
+const { makeExecutableSchema } = require('@graphql-tools/schema');
+
+const typeDefs = loadFilesSync(path.join(__dirname, '**/*.graphql'));
+const schema = makeExecutableSchema({
+	typeDefs,
+});
 
 const app = express();
 const PORT = 3000;
 
 const rootValue = {
-	description: 'Blue shoe',
-	price: 12.12,
+	products: require('./data/products.model'),
+	orders: require('./data/orders.model'),
 };
 
 app.use(
 	graphqlHTTP({
 		schema,
+		graphiql: true,
 		rootValue,
 	})
 );
