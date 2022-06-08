@@ -11,11 +11,11 @@ const orders = [
 	},
 ];
 
-function getAllOrders() {
-	return null;
+function getOrders() {
+	return orders;
 }
 
 module.exports = {
 	orders,
-	getAllOrders,
+	getOrders,
 };

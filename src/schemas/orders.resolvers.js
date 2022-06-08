@@ -1,9 +1,9 @@
-const { getAllOrders } = require('../models/orders.model');
+const { getOrders } = require('../models/orders.model');
 
 module.exports = {
 	Query: {
-		orders: async (parent) => {
-			return await getAllOrders();
+		orders: async () => {
+			return await getOrders();
 		},
 	},
 };
