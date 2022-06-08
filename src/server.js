@@ -4,17 +4,20 @@ const path = require('path');
 const { loadFilesSync } = require('@graphql-tools/load-files');
 const { makeExecutableSchema } = require('@graphql-tools/schema');
 
+const resolvers = loadFilesSync(path.join(__filename, '**/*.resolvers.js'));
 const typeDefs = loadFilesSync(path.join(__dirname, '**/*.graphql'));
+
 const schema = makeExecutableSchema({
 	typeDefs,
+	resolvers,
 });
 
 const app = express();
 const PORT = 3000;
 
 const rootValue = {
-	products: require('./data/products.model'),
-	orders: require('./data/orders.model'),
+	products: require('./models/products.model'),
+	orders: require('./models/orders.model'),
 };
 
 app.use(
